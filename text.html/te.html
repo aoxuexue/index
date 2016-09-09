@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			ul,li{
+				margin: 0;
+				padding: 0;
+			}
+			li{
+				list-style: none;
+			}
+			a{
+				text-decoration: none;
+			}
+			
+			#box1{
+				width: 400px;
+				height: 200px;
+				border: 8px solid orchid;
+				line-height: 20px;
+				border-radius: 20px;
+				float: left;
+				padding: 0 20px;
+				position: relative;
+				
+			}
+			#box2{
+				width: 400px;
+				height: 200px;
+				border: 8px solid salmon;
+				border-radius: 20px;
+				float: left;
+				padding: 0 20px;
+				position: relative;
+			}
+			.button{
+				width: 100px;
+				height: 200px;
+				padding: 20px 50px;
+				float: left;
+			}
+			a{
+				display: block;
+				height: 30px;
+				line-height: 30px;
+				background: darkmagenta;
+				margin-bottom: 30px;
+				border-radius: 50%;
+				text-align: center;
+				color: white;
+				font-size: 30px;
+			}
+			
+			li{
+				width: 15px;
+				height: 15px;
+				background: silver;
+				border-radius: 50%;
+				float: left;
+				margin-left: 5px;
+				margin-top: 30px;
+			}
+			span{
+				position: absolute;
+				left: 180px;
+				bottom: 10px;
+				display: block;
+				width: 80px;
+				height: 30px;
+				background: skyblue;
+				color: white;
+				border-radius: 10px;
+				line-height: 30px;
+				text-align: center;
+			}
+			
+			.licolor {
+				background: yellow;
+			}
+			p{
+				color: darkmagenta;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box1">
+			<p>
+				我们在岁月中缓慢前行，身后留下长长的记忆。这个记忆就叫做昨天，镌刻着所有的开心与不快，所有的荣耀与失败。但是不管怎样，昨天已经过去，它注定要被光阴带走色彩，蒙上灰尘。我们不必沉迷于过去的成功或失败。总结，我们要做的就是总结。昨天如果是辉煌的，那就去总结成功的经验；昨天如果是暗淡的，那就吸取失败的教训，别受了点伤就一蹶不振，毕竟未来还有许多大风大浪等待着你去乘风破浪。
+			</p>
+			<span></span>
+		</div>
+		<div class="button">
+			<a href="javascript:;"><</a>
+			<a href="javascript:;">></a>
+			<ul>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
+		</div>
+		<div id="box2">
+			<p></p>
+			<span></span>
+		</div>
+		<script type="text/javascript">
+			var box1 = document.getElementById('box1');
+			var ps = document.getElementsByTagName('P');
+			var box2 = document.getElementById('box2');
+			var as = document.getElementsByTagName('a');
+			var spans = document.getElementsByTagName('span');
+			//获取文字
+			var text1 = ps[0].innerHTML;
+			var lis = document.getElementsByTagName('li');
+			var onOff = false;
+			var arr= text1.split('');
+			var timer=null;
+			lis[0].className = 'licolor';
+			//console.log(arr);
+			//点击事件，点击向右
+			as[1].onclick =function(){
+				//当左边不为空的时候
+				if(ps[0].innerHTML !=''){
+					//console.log(onOff)
+					//开关为false
+					if(onOff){
+						return;
+					}
+					//开关为真
+					onOff = true;
+					var num = 0;
+					//循环定时器
+					timer=setInterval(function(){
+						//调用函数
+						ab();
+						
+						spans[1].innerHTML = num+"/"+(arr.length-1);
+						//右边的文本框
+						ps[1].innerHTML += arr[num];
+						//截取字符串，左边的文本框随着num的值减少
+						ps[0].innerHTML = text1.substring(num+1);
+						//给li添加颜色
+						lis[num%lis.length].className = 'licolor';
+						num++;
+							//判断当左边的文本框为空
+							if(ps[0].innerHTML ==''){
+								onOff = false;
+								//console.log(onOff)
+								clearInterval(timer);
+								//spans[0].innerHTML = num+'/'+(arr.length);
+								lis[(num-1)%lis.length].className = '';
+								lis[0].className = 'licolor';
+							}
+					},20)
+				}
+				else{
+					alert('这里没有文字可以搬运了');
+				}
+			}
+			
+			//点击事件，点击向左
+			as[0].onclick =function(){
+				if(ps[1].innerHTML !=''){
+					if(onOff){
+						return;
+					}
+					onOff = true;
+					var num = 0;
+					//循环定时器
+					timer=setInterval(function(){
+						//调用函数
+						ab();
+						spans[0].innerHTML = num+"/"+(arr.length-1);
+						//左边的文体框
+						ps[0].innerHTML += arr[num];
+						//截取字符串，右边的文本框随着num的值减少
+						ps[1].innerHTML = text1.substring(num+1);
+						lis[num%lis.length].className = 'licolor';
+						num++;
+							//判断右边的文本框为空
+							if(ps[1].innerHTML ==''){
+								onOff = false;
+								clearInterval(timer);
+								//spans[1].innerHTML = num+'/'+(arr.length);
+								lis[(num-1)%lis.length].className = '';
+								lis[0].className = 'licolor';
+							}
+					},20)
+				}
+				else{
+					alert('这里没有文字可以搬运了');
+				}
+			}
+			
+			//封装函数,清空li的颜色
+			function ab(){
+				for(var i=0; i<lis.length; i++){
+					lis[i].className = '';
+				}
+			}
+							
+			
+			
+		</script>
+	</body>
+</html>
