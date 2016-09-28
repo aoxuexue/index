@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 100px;
+				height: 100px;
+				background: lightcoral;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		<script type="text/javascript">
+			var box = document.getElementById('box');
+			var left = false;
+			var up = false;
+			var right = false;
+			var bottom = false;
+			//定时器
+			setInterval(function(){
+					if(left){
+						//左
+						box.style.left = box.offsetLeft -10+'px';
+					}
+					if(up){
+						//上
+						box.style.top = box.offsetTop -10+'px';
+					}
+					if(right){
+						//右
+						box.style.left = box.offsetLeft +10+'px';
+				
+					}
+					if(bottom){
+						//下
+						box.style.top = box.offsetTop +10+'px';
+					}
+			},100)
+			
+			document.onkeydown = function(ev){
+				//判断键盘的值,左，上，右，下发生位置时
+				switch(ev.keyCode){
+					case 37://左
+					left = true;
+					right = false;
+					break;
+					case 38://上
+					up = true;
+					bottom = false;
+					break;
+					case 39://右
+					right = true;
+					left = false;
+					break;
+					case 40://下
+					bottom = true;
+					up = false;
+					
+				}
+			};
+			//判断鼠标抬起的时候
+			document.onkeyup = function(ev){
+				switch(ev.keyCode){
+					case 37://左
+					left = false;
+					break;
+					case 38://上
+					up = false;
+					break;
+					case 39://右
+					right = false;
+					break;
+					case 40://下
+					bottom = false;
+				}
+			};
+			
+			
+			
+			
+			
+		</script>
+	</body>
+</html>

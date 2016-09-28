@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		#box{
+			width: 100px;
+			height: 100px;
+			background-color: red;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div id="box"></div>
+	<script>
+		var box = document.getElementById('box');
+		var left = false;
+		var up = false;
+		var right = false;
+		var bottom = false;
+		// var timer = null;
+		box.onmousedown = function(ev){
+			//记录鼠标距离box边缘的位置;
+			var leftX = ev.clientX - this.offsetLeft;
+			var topY = ev.clientY - this.offsetTop;
+			document.onmousemove = function(ev){
+				//获取到移动过程中鼠标的位置，然后减去鼠标到box边缘的位置。
+				var x = ev.clientX - leftX;
+				var y = ev.clientY - topY;
+				box.style.left = x + 'px';
+				box.style.top = y + 'px';
+			};
+			//鼠标抬起的时候把move事件注销，这样box就不会在移动了。
+			document.onmouseup = function(){
+				document.onmousemove = null;
+			};
+		};
+		//循环定时器判断每个方向的值;
+		setInterval(function(){
+			if (left) {
+				box.style.left = box.offsetLeft - 10 +'px';	
+			}
+			if (up) {
+				box.style.top = box.offsetTop - 10 +'px';	
+			}
+			if (right) {
+				box.style.left = box.offsetLeft + 10 + 'px';
+			}
+			if (bottom) {
+				box.style.top = box.offsetTop + 10 + 'px';
+			}
+		},40)
+		//键盘事件;
+		document.onkeydown = function(ev){
+			//判断键盘的keyCode值如果是上下左右键就发生位置的操作(当点击左键是右键不会被触发只有抬起后才会触发);
+			switch(ev.keyCode){
+				case 37: //左
+				left = true;
+				right = false;
+				break;
+				case 38: //上
+				up = true;
+				bottom = false;
+				break;
+				case 39: //右
+				right = true;
+				left = false;
+				break;
+				case 40: //下
+				bottom = true;
+				up = false;
+			}
+		};
+		//判断鼠标抬后监控的keyCode值变为flase;
+		document.onkeyup = function(ev){
+			switch(ev.keyCode){
+				case 37: //左
+				left = false;
+				break;
+				case 38: //上
+				up = false;
+				break;
+				case 39: //右
+				right = false;
+				break;
+				case 40: //下
+				bottom = false;
+			}
+		};
+	</script>
+</body>
+</html>
