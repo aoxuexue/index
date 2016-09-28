@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>日历</title>
+		<link rel="stylesheet" type="text/css" href="calendar.css"/>
+		<script type="text/javascript" src="calendar.js"></script>
+	</head>
+	<body>
+		<section id="calendar">
+			<div id="mask"></div>
+			<div id="content">
+				<div id="time"></div>
+				<a href="javascript:;" id="date"></a>
+				<div id="setDate">
+					<a href="javascript:;" id="upper"></a>
+					<p>
+						<a href="javascript:;" id="prevMonth"><</a>
+						<a href="javascript:;" id="nextMonth">></a>
+					</p>
+				</div>
+				<p id="weeks">
+					<a href="javascript:;">一</a>
+					<a href="javascript:;">二</a>
+					<a href="javascript:;">三</a>
+					<a href="javascript:;">四</a>
+					<a href="javascript:;">五</a>
+					<a href="javascript:;">六</a>
+					<a href="javascript:;">日</a>
+				</p>
+				<div id="everyDay"></div>
+			</div>
+		</section>
+		<script type="text/javascript">
+			var time = document.getElementById('time');
+			var date = document.getElementById('date');
+			var everyDay = document.getElementById('everyDay');
+			var upper = document.getElementById('upper');
+			var prevMonth = document.getElementById('prevMonth');
+			var nextMonth = document.getElementById('nextMonth');
+			//调用函数，实参
+			init(time,date,upper,everyDay,prevMonth,nextMonth);
+		</script>
+	</body>
+</html>
